@@ -1,5 +1,6 @@
 
 import controllers.BusTimes
+import models.Timetable
 import org.joda.time.{LocalDateTime, DateTime, LocalTime}
 import org.scalatestplus.play.PlaySpec
 
@@ -24,7 +25,15 @@ class BusTimesSpec extends PlaySpec {
     }
 
     "return the time of the next bus when there are two times" in {
+      Timetable.findNext(new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
+    }
 
+    "return the time of the next bus on weekday" in {
+
+      val currentDay = DateTime.now.toString("EEEEEEEEE")
+
+      println(currentDay)
+      Timetable.findNext(new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
     }
 
   }
