@@ -46,15 +46,17 @@ object Timetable {
 
   def findNextRecursive(today: String, currentTime: LocalTime) = {
 
-    val dayList: List[Timetable] = timeList.filter(x => x.weekday == today)
+    val dayList: List[Timetable] = timeListNoOrder.filter(x => x.weekday == today)
     @tailrec
     def nextFinder(dayList: List[Timetable], timeMore: LocalTime): Timetable = {
       dayList match {
-        case x :: tail => if(x.timetableTime.isBefore(timeMore)) {
+        case x :: tail if x.timetableTime.isBefore(timeMore) => {
           nextFinder(tail, x.timetableTime)
-        } else x
+        }
+        case x :: Nil => x
       }
     }
+    nextFinder(dayList, currentTime)
   }
 
 }
