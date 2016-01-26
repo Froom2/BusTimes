@@ -53,18 +53,18 @@ class BusTimesSpec extends PlaySpec {
     }
 
 
-    "use the findNextRecursive function to return the time of the next bus when there are multiple times" in {
-      Timetable.findNextRecursive(testWeekday, new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
-    }
-    "use the findNextRecursive function to return the time of the next bus on weekday" in {
-      Timetable.findNextRecursive(testWeekday, new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
-    }
-    "use the findNextRecursive function to return the time of the next bus on a Saturday" in {
-      Timetable.findNextRecursive(testSaturday, new LocalTime(9, 30)) must be (Timetable("Saturday", new LocalTime(10, 0), "63"))
-    }
-    "use the findNextRecursive function to return an error if there are no more busses" in {
-      Timetable.findNextRecursive(testSaturday, new LocalTime(13, 30)) must be("No more busses!")
-    }
+//    "use the findNextRecursive function to return the time of the next bus when there are multiple times" in {
+//      Timetable.findNextRecursive(testWeekday, new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
+//    }
+//    "use the findNextRecursive function to return the time of the next bus on weekday" in {
+//      Timetable.findNextRecursive(testWeekday, new LocalTime(12, 30)) must be (Timetable("Weekday", new LocalTime(13, 0), "63"))
+//    }
+//    "use the findNextRecursive function to return the time of the next bus on a Saturday" in {
+//      Timetable.findNextRecursive(testSaturday, new LocalTime(9, 30)) must be (Timetable("Saturday", new LocalTime(10, 0), "63"))
+//    }
+//    "use the findNextRecursive function to return an error if there are no more busses" in {
+//      Timetable.findNextRecursive(testSaturday, new LocalTime(13, 30)) must be("No more busses!")
+//    }
   }
 
 }
