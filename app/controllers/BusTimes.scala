@@ -8,9 +8,6 @@ import play.api.mvc._
 
 class BusTimes extends Controller {
 
-  def hello = {
-    "hello"
-  }
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
@@ -25,14 +22,11 @@ class BusTimes extends Controller {
 
   def nextBus(currentTime: LocalDateTime) = {
 
-    if (currentTime.isBefore(models.Times.next)) {
-      val timeOfBus = models.Times.next.toString("EEE dd MMM, yyyy, HH:mm")
 
-      timeOfBus
-
-    }
-    else "No more busses!"
   }
+
 }
+
+
 
 object BusTimes extends BusTimes
