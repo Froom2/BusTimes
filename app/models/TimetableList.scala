@@ -1,9 +1,9 @@
+
 package models
+
 import org.joda.time.LocalTime
 
-/**
- * Created by nicole on 1/26/16.
- */
+
 trait TimetableList {
 
   val timeList = List(
