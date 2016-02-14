@@ -1,32 +1,50 @@
 
+import Composition.Composition
 import controllers.BusTimes
-import models.{TimetableList, Bus}
-import org.joda.time.{LocalDateTime, DateTime, LocalTime}
+import models.{Bus, TimetableList}
+import org.joda.time.LocalTime
+import org.mockito.Matchers.any
+import org.mockito.Mockito._
+import org.scalatest.mock.MockitoSugar
 import org.scalatestplus.play.PlaySpec
+import play.api.mvc.{AnyContent, Request, Result}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import scala.concurrent.Future
 
-class BusTimesSpec extends PlaySpec {
+
+class BusTimesSpec extends PlaySpec with MockitoSugar {
+
+  val mockTimetableList = mock[TimetableList]
+
+  trait FakeComposition
+    extends Composition {
+    override val timeTableService = mockTimetableList
+  }
+
+  val SUT = new BusTimes with FakeComposition
+
+  when(mockTimetableList.findNext(any[String], any[LocalTime]))
+    .thenReturn(Right(Bus("Weekday", new LocalTime(11, 0), "63")))
+
+  def withCallToGet(ctrl: BusTimes,
+                    request: Request[AnyContent] = FakeRequest(method = "GET", ""))
+                   (handler: Future[Result] => Any) = {
+    handler(ctrl.nextBus.apply(request))
+  }
 
   "The BusTimes controller" must {
 
-    val currentDay = DateTime.now.toString("EEEEEEEEE")
-    val testWeekday = "Weekday"
-    val testSaturday = "Saturday"
-
-
-
-    "use the findNextNoTry function to return the time of the next bus when there are multiple times" in {
-      TimetableList.findNext(testWeekday, new LocalTime(12, 30)) must be (Right(Bus("Weekday", new LocalTime(13, 0), "63")))
-    }
-    "use the findNextNoTry function to return the time of the next bus on weekday" in {
-      TimetableList.findNext(testWeekday, new LocalTime(12, 30)) must be (Right(Bus("Weekday", new LocalTime(13, 0), "63")))
-    }
-    "use the findNextNoTry function to return the time of the next bus on a Saturday" in {
-      TimetableList.findNext(testSaturday, new LocalTime(9, 30)) must be (Right(Bus("Saturday", new LocalTime(10, 0), "63")))
-    }
-    "use the findNextNoTry function to return an error if there are no more busses" in {
-      TimetableList.findNext(testSaturday, new LocalTime(13, 30)) must be(Left("No more busses!"))
+    "respond to a GET request" in {
+      withCallToGet(SUT) { result =>
+        status(result) must not equal NOT_FOUND
+      }
     }
 
+    "respond to a valid GET request with Ok when it finds the next bus" in {
+      withCallToGet(SUT) { result =>
+        status(result) must be(OK)
+      }
+    }
   }
-
 }

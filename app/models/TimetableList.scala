@@ -4,7 +4,7 @@ package models
 import org.joda.time.LocalTime
 
 
-trait TimetableList {
+class TimetableList {
 
   val timeList = List(
     Bus("Weekday", new LocalTime(11, 0), "63"),
@@ -22,5 +22,3 @@ trait TimetableList {
     }
   }
 }
-
-object TimetableList extends TimetableList
