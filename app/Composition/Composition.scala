@@ -1,15 +1,18 @@
 package Composition
 
-import models.TimetableList
+import models.{TimeService, TimetableList}
 
 
 trait Composition {
 
   val timeTableService : TimetableList
+  val timeService: TimeService
 }
 
-trait CompositionImpl
+trait CompositionReal
   extends Composition {
 
   override val timeTableService = new TimetableList
+  override val timeService = new TimeService
+
 }
