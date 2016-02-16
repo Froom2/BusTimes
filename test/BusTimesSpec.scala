@@ -2,7 +2,7 @@
 import Composition.Composition
 import controllers.BusTimes
 import models.{Bus, TimetableList}
-import org.joda.time.LocalTime
+import org.joda.time.{LocalDateTime, LocalTime}
 import org.mockito.Matchers.any
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
@@ -25,7 +25,7 @@ class BusTimesSpec extends PlaySpec with MockitoSugar {
   val SUT = new BusTimes with FakeComposition
 
   when(mockTimetableList.findNext(any[String], any[LocalTime]))
-    .thenReturn(Right(Bus("Weekday", new LocalTime(11, 0), "63")))
+    .thenReturn(Some(Bus("Weekday", new LocalTime(11, 0), "63")))
 
   def withCallToGet(ctrl: BusTimes,
                     request: Request[AnyContent] = FakeRequest(method = "GET", ""))
@@ -42,6 +42,12 @@ class BusTimesSpec extends PlaySpec with MockitoSugar {
     }
 
     "respond to a valid GET request with Ok when it finds the next bus" in {
+      withCallToGet(SUT) { result =>
+        status(result) must be(OK)
+      }
+    }
+
+    "respond to a valid GET request with Ok when there are no more busses" in {
       withCallToGet(SUT) { result =>
         status(result) must be(OK)
       }

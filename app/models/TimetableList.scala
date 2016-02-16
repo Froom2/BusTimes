@@ -1,7 +1,7 @@
 
 package models
 
-import org.joda.time.LocalTime
+import org.joda.time.{LocalDateTime, LocalTime}
 
 
 class TimetableList {
@@ -13,12 +13,12 @@ class TimetableList {
     Bus("Saturday", new LocalTime(10, 0), "63")
   )
 
-  def findNext(today: String, currentTime: LocalTime): Either[String, Bus] = {
+  def findNext(today: String, currentTime: LocalTime): Option[Bus] = {
 
     timeList.filter(x => x.weekday == today && (x.timetableTime isAfter currentTime))
     match {
-      case x :: _ => Right(x)
-      case _ => Left("No more busses!")
+      case x :: _ => Some(x)
+      case _ => None
     }
   }
 }
