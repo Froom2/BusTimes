@@ -1,5 +1,5 @@
 import models.{Bus, TimetableList}
-import org.joda.time.{LocalTime, LocalDateTime}
+import org.joda.time.LocalTime
 import org.scalatest.{FlatSpec, Matchers}
 
 

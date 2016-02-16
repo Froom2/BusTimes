@@ -1,23 +1,23 @@
 
 package controllers
 
-import Composition.{Composition, CompositionReal}
-import models.{TimeService, Bus, TimetableList}
-import org.joda.time.{LocalTime, LocalDateTime}
-import play.api.mvc.{AnyContent, Action, Controller}
+import composition.compositionReal
+import models.Bus
+import org.joda.time.LocalDateTime
+import play.api.mvc.{Action, AnyContent, Controller}
 import views.html.main
 
 
-class BusTimes extends Controller with CompositionReal {
+class BusTimes extends Controller with compositionReal {
 
   def nextBus: Action[AnyContent] = Action {
 
     val next: Option[Bus] = timeTableService
-      .findNext(LocalDateTime.now.dayOfWeek.getAsText, timeService.now)
+      .findNext(timeService.dayType(timeService.nowLocalDate), timeService.nowLocalTime) // need to sort out so it deals with weekdays properly
 
     next match {
-      case Some(bus) => Ok
-      case _ => Ok
+      case Some(bus) => Ok(main(bus))
+      case _ => Ok("Moooooo no more busses :(")
     }
   }
 }

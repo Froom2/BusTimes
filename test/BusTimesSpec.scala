@@ -1,8 +1,8 @@
 
-import Composition.Composition
+import composition.composition
 import controllers.BusTimes
 import models.{Bus, TimetableList}
-import org.joda.time.{LocalDateTime, LocalTime}
+import org.joda.time.LocalTime
 import org.mockito.Matchers.any
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
@@ -18,7 +18,7 @@ class BusTimesSpec extends PlaySpec with MockitoSugar {
   val mockTimetableList = mock[TimetableList]
 
   trait FakeComposition
-    extends Composition {
+    extends composition {
     override val timeTableService = mockTimetableList
   }
 

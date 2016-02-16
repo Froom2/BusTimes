@@ -1,7 +1,7 @@
 
 package models
 
-import org.joda.time.{LocalDateTime, LocalTime}
+import org.joda.time.LocalTime
 
 
 class TimetableList {
@@ -10,6 +10,7 @@ class TimetableList {
     Bus("Weekday", new LocalTime(11, 0), "63"),
     Bus("Weekday", new LocalTime(12, 0), "62"),
     Bus("Weekday", new LocalTime(13, 0), "63"),
+    Bus("Weekday", new LocalTime(23, 59), "63"),
     Bus("Saturday", new LocalTime(10, 0), "63")
   )
 

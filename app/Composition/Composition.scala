@@ -1,16 +1,16 @@
-package Composition
+package composition
 
 import models.{TimeService, TimetableList}
 
 
-trait Composition {
+trait composition {
 
   val timeTableService : TimetableList
   val timeService: TimeService
 }
 
-trait CompositionReal
-  extends Composition {
+trait compositionReal
+  extends composition {
 
   override val timeTableService = new TimetableList
   override val timeService = new TimeService
