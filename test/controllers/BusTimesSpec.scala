@@ -1,6 +1,7 @@
+package controllers
+
 
 import composition.composition
-import controllers.BusTimes
 import models.{Bus, TimetableList}
 import org.joda.time.LocalTime
 import org.mockito.Matchers.any
@@ -10,6 +11,7 @@ import org.scalatestplus.play.PlaySpec
 import play.api.mvc.{AnyContent, Request, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+
 import scala.concurrent.Future
 
 

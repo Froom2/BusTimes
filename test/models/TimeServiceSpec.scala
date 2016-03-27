@@ -1,6 +1,7 @@
+package models
+
 import org.joda.time.{LocalDate, LocalTime}
-import org.scalatest.{Matchers, FlatSpec}
-import models.TimeService
+import org.scalatest.{FlatSpec, Matchers}
 
 class TimeServiceSpec extends FlatSpec with Matchers {
 
