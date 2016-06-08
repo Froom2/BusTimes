@@ -1,4 +1,3 @@
-This is your new Play application
-=================================
+[![Build Status](https://travis-ci.org/Froom2/BusTimes.svg?branch=master)](https://travis-ci.org/Froom2/BusTimes)
 
-This file will be packaged with your application, when using `activator dist`.
+Shows the time of the next bus heading North from opposite Biddlestone Road.
